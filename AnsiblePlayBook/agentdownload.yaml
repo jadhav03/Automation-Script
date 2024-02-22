@@ -1,0 +1,31 @@
+-
+name: dowload checkmk agent on server host
+host: [servers]
+become: true
+    tasks:
+     - name: create directory
+       file:
+          path: /usr/local/check_mk
+          state: directory
+
+      - name: dowload checkmk agent
+        get_url:
+        url: https://checkmk.example.com/check_mk/agents/check-mk-agent-linux.tar.gz  # Replace with the actual download URL
+        dest: /usr/local/check_mk/check-mk-agent-linux.tar.gz
+
+      - name: xtract checkmk agent
+        ansible.builtin.unarchive:
+          src: /usr/local/check_mk/check-mk-agent-linux.tar.gz
+          dest: /usr/local/check_mk/
+          remote_src: yes
+          extra_opts: ['--strip-components=1']
+
+      - name: Set excute permission
+        ansible.builtin.file:
+          path: /usr/local/check_mk/check_mk_agent.linux
+          mode: '+x'
+          
+      - name: Cleanup downloaded tarball
+        ansible.builtin.file:
+            path: /usr/local/check_mk/check-mk-agent-linux.tar.gz
+            state: absent

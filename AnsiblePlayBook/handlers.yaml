@@ -1,0 +1,10 @@
+handlers:
+  - name: a
+    debug: 
+    msg: "installation failed"
+  - name: b
+    debug:
+    msg: "service failed"
+  - name: c 
+    debug:
+    msg: "playbook was unseccessful"

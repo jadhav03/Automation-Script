@@ -1,0 +1,36 @@
+---
+- name: play to check package
+  host: test
+  become: true
+  user: bhushan
+  ignore_error: true
+  tastk:
+    - name: check for package
+      yum:
+        name: http
+        state: present
+      registre: value
+      
+    - name: call handler
+      shell:
+        cmd: echo ""
+      notify: a
+      when: value | failed
+    
+    - name: check for package
+      service:
+        name: http
+        state: started
+      registre: value2
+
+    - name: call b handler
+      shell:
+        cmd: echo ""
+      notify: b
+      when: value2 | failed
+
+    - name: call c handler
+      shell:
+        cmd: echo ""
+        notify: c
+      when: value | failed and value2      

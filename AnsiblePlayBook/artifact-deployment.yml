@@ -1,0 +1,45 @@
+---
+name: Download artifact and host on apache server
+host: [servers]
+user: ansible
+become: true
+
+vars:
+    jfrog_artifactory_url: "https://your-artifactory-url"
+    jfrog_username: "your-jfrog-username" # encrypte this value with base 64
+    jfrog_password: "your-jfrog-password" # encrypte this value with base 64
+    artifact_repository: "your-artifact-repo"
+    artifact_path: "path/to/your/app.war"
+    deploy_directory: "/opt/java_apps"
+
+
+tasks:
+  - name: dowload artifact from jfrog
+      get_url:
+        url: "{{ jfrog_artifactory_url }}/{{ artifact_repository }}/{{ artifact_path }}"
+        dest: "/tmp/{{ artifact_path }}"
+        headers:
+            "Authorization": "Basic {{ (jfrog_username + ':' + jfrog_password) | b64encode | decode('utf-8') }}"
+
+  - name: install apache2
+      package:
+        name: apache2
+        state: present
+        update_cache: yes
+
+  - name: Copy Apache configuration file
+      copy:
+        src: "path/to/your/apache-config.conf"
+        dest: "/etc/apache2/sites-available/your-site.conf"
+      notify: Restart Apache
+
+  - name: Enable the site
+      command: a2ensite your-site.conf
+      notify: Restart Apache
+
+  handlers:
+    - name: Restart Apache
+      service:
+        name: apache2
+        state: restarted
+      

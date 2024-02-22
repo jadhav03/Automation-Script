@@ -1,0 +1,27 @@
+---
+name: Download artifact from JFROG and unzip
+host: [test]
+become: true
+user: ansible
+ignore_error: true
+
+tasks: 
+  - name: create folder
+    file:
+      path: var/deploy
+      state: directory
+  
+  - name: dowload tarz
+    get_url:
+      url: https://artifact.jfrog.com/springapp.zip # Replace with the exact URL
+      dest: /var/temp
+    registre: value
+  
+  - name: unzip
+    command: unzip -o /var/temp/springapp.zip -d /var/deploy
+
+  - name: call c handler
+      shell:
+        cmd: echo ""
+      notify: a
+      when: value | failed
