@@ -1,0 +1,118 @@
+1. Welcome and Introduction (5 mins)
+
+Brief overview of the session goals.
+
+Importance of Infrastructure as Code (IaC).
+
+Quick intro to Terraform as a leading IaC tool.
+
+
+2. What is Terraform? (10 mins)
+
+Definition and purpose.
+
+Advantages over manual provisioning.
+
+Comparison with other IaC tools (like CloudFormation, Ansible).
+
+Use cases: multi-cloud infrastructure, automation, and scaling.
+
+
+3. Terraform Architecture (10 mins)
+
+Providers (e.g., AWS, Azure, GCP).
+
+State files and their importance.
+
+Execution flow: Init → Plan → Apply → Destroy.
+
+Configuration files (.tf).
+
+
+4. Terraform Installation and Setup (10 mins)
+
+Prerequisites: CLI, Terraform binary.
+
+Installation demo or guide (OS-specific).
+
+Setting up the workspace (folder structure).
+
+
+5. Writing Your First Terraform Code (20 mins)
+
+Structure of a .tf file:
+
+Provider block.
+
+Resource block.
+
+Variables and Outputs.
+
+
+Example: Provision an AWS EC2 instance or Azure Virtual Machine.
+
+Execution:
+
+terraform init
+
+terraform plan
+
+terraform apply
+
+terraform destroy
+
+
+
+6. Managing State Files (15 mins)
+
+Importance of state files (terraform.tfstate).
+
+Remote state storage options (e.g., S3, Azure Blob).
+
+Handling state locks.
+
+
+7. Key Features of Terraform (15 mins)
+
+Modularization:
+
+Creating reusable modules.
+
+Module registry.
+
+
+Dependency Management:
+
+depends_on example.
+
+
+Lifecycle rules (create_before_destroy, ignore_changes).
+
+Workspaces for multi-environment deployments.
+
+
+8. Debugging and Error Handling (10 mins)
+
+Common errors and resolutions.
+
+Using terraform validate and terraform fmt.
+
+
+9. Best Practices (10 mins)
+
+Maintain a Git repository for Terraform code.
+
+Use .gitignore for sensitive files like .tfstate.
+
+Locking provider versions.
+
+Collaboration with Terraform Cloud/Enterprise.
+
+
+10. Q&A and Wrap-Up (10 mins)
+
+Address questions from participants.
+
+Share learning resources: HashiCorp documentation, tutorials, GitHub repositories.
+
+Provide a sample project for hands-on practice.
